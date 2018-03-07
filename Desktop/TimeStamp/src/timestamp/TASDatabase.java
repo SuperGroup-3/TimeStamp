@@ -11,13 +11,11 @@ import java.sql.*;
  * @author trace
  */
 public class TASDatabase {
+    Connection conn;
     public TASDatabase() throws ClassNotFoundException, InstantiationException, SQLException, IllegalAccessException{
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        String url = "jdbc:mysql://localhost/root";
-        Connection conn = DriverManager.getConnection(url, "tasuser", "group3");
-        Statement stmt  = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT FROM badge Where id = '3282F212'");
+        String url = "jdbc:mysql://localhost/tas";
+        conn = DriverManager.getConnection(url, "tasuser", "group3");
     }
-    
     
 }
