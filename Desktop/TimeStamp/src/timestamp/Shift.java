@@ -16,7 +16,17 @@ public class Shift {
     private int lunchStopHour, lunchStopMinute, lunchStopSecond;
     
     /* Constructor */
-    public Shift (int id, int interval, int earlyArrival, int lateArrival, int lunchBreak, int overTime, String description, TimeStamp start, TimeStamp stop, TimeStamp lunchstart, TimeStamp lunchstop){
+    public Shift (int id, int interval, int dock, int graceperiod, int lunchdeduct, String description, TimeStamp start, TimeStamp stop, TimeStamp lunchstart, TimeStamp lunchstop){
+        this.id = id;
+        this.interval = interval;
+        this.dock = dock;
+        this.graceperiod = graceperiod;
+        this.lunchdeduct = lunchdeduct;
+        this.description = description;
+        this.start = start;
+        this.stop = stop;
+        this.lunchstart = lunchstart;
+        this.lunchstop = lunchstop;
         
     }
     
