@@ -9,6 +9,7 @@ public class Shift {
     private String description;
     private TimeStamp start, stop, lunchstart, lunchstop;
     
+    
     /* Variables for Tracking Time */
     private int startHour, startMinute, startSecond;
     private int stopHour, stopMinute, stopSecond;
