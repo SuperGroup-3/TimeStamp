@@ -17,6 +17,19 @@ public class TASDatabase {
         String url = "jdbc:mysql://localhost/tas";
         conn = DriverManager.getConnection(url, "tasuser", "group3");
     }
-
+    
+    public Badge getBadge(String id) throws SQLException{
+        String iD = "";
+        String desc = "";
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT * FROM badge WHERE id = 'id'");
+        if(result != null){
+            result.next();
+            iD = result.getString("id");
+            desc = result.getString("description");
+        }
+        Badge b = new Badge(iD, desc);
+        return b;
+    }
     
 }
