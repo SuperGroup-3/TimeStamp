@@ -1,5 +1,9 @@
 package timestamp;
 
+/**
+ * 
+ * @author Cody Stancil-Johnson
+ */
 public class Badge {
     // instance fields
     private String id;
