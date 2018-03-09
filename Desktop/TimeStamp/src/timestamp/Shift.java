@@ -7,10 +7,16 @@ import java.util.Calendar;
 public class Shift {
     private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct;
     private String description;
-    private TimeStamp start, stop, lunchStart, lunchStop;
+    private TimeStamp start, stop, lunchstart, lunchstop;
+    
+    /* Variables for Tracking Time */
+    private int startHour, startMinute, startSecond;
+    private int stopHour, stopMinute, stopSecond;
+    private int lunchStartHour, lunchStartMinute, lunchStartSecond;
+    private int lunchStopHour, lunchStopMinute, lunchStopSecond;
     
     /* Constructor */
-    public Shift (int id, int interval, int earlyArrival, int lateArrival, int lunchBreak, int overTime, String description, Timestamp start, Timestamp stop, Timestamp lunchStart, Timestamp lunchStop){
+    public Shift (int id, int interval, int earlyArrival, int lateArrival, int lunchBreak, int overTime, String description, TimeStamp start, TimeStamp stop, TimeStamp lunchstart, TimeStamp lunchstop){
         
     }
     
@@ -123,22 +129,22 @@ public class Shift {
         return stop;
     }
     
-    /* lunchStart */
-    private void setLunchStart(TimeStamp lunchStart){
-        this.lunchStart = lunchStart;
+    /* lunchstart */
+    private void setLunchStart(TimeStamp lunchstart){
+        this.lunchstart = lunchstart;
     }
     
     private TimeStamp getLunchStart(){
-        return lunchStart;
+        return lunchstart;
     }
     
-    /* lunchStop */
-    private void setLunchStop(TimeStamp lunchStop){
-        this.lunchStop = lunchStop;
+    /* lunchstop */
+    private void setLunchstop(TimeStamp lunchstop){
+        this.lunchstop = lunchstop;
     }
     
     private TimeStamp getLunchStop(){
-        return lunchStop;
+        return lunchstop;
     }
     
     
