@@ -1,5 +1,7 @@
 package timestamp;
 
+import java.util.GregorianCalendar;
+
 /**
  * 
  * @author Michael Harvey
@@ -8,20 +10,19 @@ public class Punch {
     
     //instance fields
     private int terminalid;
-    private int punchtypeid;
+    private int eventtypeid;
     private int punchid;
-    private Badge badge;
+    private GregorianCalendar originaltimestamp;
     
     //constructor
-    public Punch(int terminalid, int punchtypeid, int punchid, Badge badge) {
+    public Punch(int terminalid, int eventtypeid, int punchid) {
         this.terminalid = terminalid;
-        this.punchtypeid = punchtypeid;
+        this.eventtypeid = eventtypeid;
         this.punchid = punchid;
-        this.badge = badge;
     }
-    
+
     //methods
-    public Punch getPunch(punchid){
-        //TODO
+    public GregorianCalendar printOriginalTimestamp(){
+        return originaltimestamp;
     }
 }
