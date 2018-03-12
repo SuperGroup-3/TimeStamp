@@ -16,22 +16,23 @@ public class Badge {
     }
     
     // method(s)
-    public void setID(String id){
-        this.id = id;
-    }
-    
-    public void setDescription (String d){
-        this.description = d;
-    }
-    
-    public String getID(){
+    public String getId() {
         return id;
     }
-    
-    public String getDescription(){
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
         return description;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
     
+    @Override
     public String toString(){
         return "#" + id + " (" + description + ')';
     }
