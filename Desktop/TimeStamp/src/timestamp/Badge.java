@@ -10,18 +10,18 @@ public class Badge {
     private String description;
     
     // constructor(s)
-    public Badge (String SEB, String d){
-        this.id = SEB;
+    public Badge (String id, String d){
+        this.id = id;
         this.description = d;      
     }
     
     // method(s)
-    public void setID(String ID){
-        this.id = ID;
+    public void setID(String id){
+        this.id = id;
     }
     
-    public void setDescription (String D){
-        this.description = D;
+    public void setDescription (String d){
+        this.description = d;
     }
     
     public String getID(){
@@ -30,5 +30,9 @@ public class Badge {
     
     public String getDescription(){
         return description;
+    }
+    
+    public String toString(){
+        return "#" + id + " (" + description + ')';
     }
 }

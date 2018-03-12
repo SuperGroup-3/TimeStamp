@@ -18,16 +18,11 @@ public class Punch {
     private String eventdata;
     
     
-    //constructor
-    public Punch(Badge badge, int id, int terminalid, String bagdeid, GregorianCalender originaltimestanp, int eventtypeid, String eventdata) {
+    //constructor(s)
+    public Punch(Badge badge, int terminalid, int punchtypeid){
         this.badge = badge;
-        this.id = id;
         this.terminalid = terminalid;
-        this.badgeid = badgeid;
-        this.originaltimestamp = originaltimestamp;
-        this.eventtypeid = eventtypeid;
-        this.eventdata = eventdata;
-        
+        this.punchtypeid = punchtypeid;       
     }
 
     //methods
