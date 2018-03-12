@@ -9,20 +9,22 @@ import java.util.GregorianCalendar;
 public class Punch {
     
     //instance fields
-    private Badge badge;
     private int id;
     private int terminalid;
     private String badgeid;
     private GregorianCalendar originaltimestamp;
+    private GregorianCalendar adjustedtimestamp;
     private int punchtypeid;
     private String eventdata;
     
     
     //constructor(s)
     public Punch(Badge badge, int terminalid, int punchtypeid){
-        this.badge = badge;
+        this.badgeid = badge.getID();
         this.terminalid = terminalid;
-        this.punchtypeid = punchtypeid;       
+        this.punchtypeid = punchtypeid;
+        this.originaltimestamp = new GregorianCalendar();
+        this.adjustedtimestamp = new GregorianCalendar();
     }
 
     //methods
