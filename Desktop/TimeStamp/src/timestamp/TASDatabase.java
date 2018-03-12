@@ -52,6 +52,29 @@ public class TASDatabase {
         return p;
     }
     
+    public Shift getShift(int id) throws SQLException{
+        int shiftID = 0;
+        int interval = 0;
+        int dock = 0;
+        int gracePeriod = 0;
+        int lunchDeduct = 0;
+        String description = "";
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT * FROM shift WHERE id = 'id'");
+        if(result != null){
+            result.next();
+            shiftID = result.getInt("id");
+            description = result.getString("description");
+            interval = result.getInt("interval");
+            gracePeriod = result.getInt("graceperiod");
+            dock = result.getInt("dock");
+            lunchDeduct = result.getInt("lunchdeduct");
+        }
+        Shift s = new Shift();
+        return s;
+        
+    }
+    
     
     
 }
