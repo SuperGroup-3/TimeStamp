@@ -36,7 +36,6 @@ public class TASDatabase {
         int terminalid = 0;
         int punchtypeid = 0;
         String badgeid = "";
-        String eventdata = "";
         
         Statement stmt = conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT * FROM event WHERE eventtypeid = 'punchtypeid', terminalid = 'terminalid', badgeid = 'badgeid', eventdata = 'eventdata'");
@@ -45,9 +44,8 @@ public class TASDatabase {
             punchtypeid = result.getInt("eventtypeid");
             terminalid = result.getInt("terminalid");
             badgeid = result.getString("badgeid");
-            eventdata = result.getString("eventdata");
         }
-        Badge b = new Badge(badgeid, eventdata);
+        Badge b = getBadge(badgeid);
         Punch p = new Punch(b, terminalid, punchtypeid);
         return p;
     }
