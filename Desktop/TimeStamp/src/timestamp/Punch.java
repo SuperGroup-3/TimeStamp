@@ -83,8 +83,14 @@ public class Punch {
     public void setEventdata(String eventdata) {
         this.eventdata = eventdata;
     }
+    public String getEventType(int punchtypeid){
+        if(punchtypeid==0){return "CLOCKED IN";}
+        else if(punchtypeid==1){return "CLOCKED OUT";}
+        else if(punchtypeid==2){return "TIMED OUT";}
+        return "null";
+    }
     
     public String printOriginalTimestamp(){
-        return '#' + badgeid + originaltimestamp;
+        return '#' + badgeid + /* event type NEED HELP + */  originaltimestamp;
     }
 }
