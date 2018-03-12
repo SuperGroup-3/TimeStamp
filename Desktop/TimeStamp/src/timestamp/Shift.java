@@ -11,10 +11,10 @@ public class Shift {
     
     
     /* Variables for Tracking Time */
-    private int startHour, startMinute, startSecond;
-    private int stopHour, stopMinute, stopSecond;
-    private int lunchStartHour, lunchStartMinute, lunchStartSecond;
-    private int lunchStopHour, lunchStopMinute, lunchStopSecond;
+    private int startHour, startMinute;
+    private int stopHour, stopMinute;
+    private int lunchStartHour, lunchStartMinute;
+    private int lunchStopHour, lunchStopMinute;
     
     /* Constructor */
     public Shift (int id, int interval, int dock, int graceperiod, int lunchdeduct, String description, TimeStamp start, TimeStamp stop, TimeStamp lunchstart, TimeStamp lunchstop){
