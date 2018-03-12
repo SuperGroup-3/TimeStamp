@@ -19,7 +19,7 @@ public class Punch {
     
     
     //constructor(s)
-    public Punch(Badge badge, int terminalid, int punchtypeid) {
+    public Punch(Badge badge, int terminalid, int punchtypeid){
         this.badge = badge;
         this.terminalid = terminalid;
         this.punchtypeid = punchtypeid;       
