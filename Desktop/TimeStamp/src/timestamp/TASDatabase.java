@@ -76,5 +76,17 @@ public class TASDatabase {
     }
     
     
+    public Shift getShift(Badge b) throws SQLException{
+        int sID = 0;
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT * FROM employee WHERE badgeid = " + b.getID());
+        if(result != null){
+            sID = result.getInt("shiftid");
+        }
+        Shift ss = getShift(sID);
+        return ss;
+    }
+    
+    
     
 }
