@@ -9,9 +9,9 @@ import java.util.GregorianCalendar;
 public class Punch {
     
     //important vairables
-    public static final String EventType_0 = "CLOCKED IN";
-    public static final String EventType_1 = "CLOCKED OUT";
-    public static final String EventType_2 = "TIMED OUT";
+    public static final String EventType_0 = "CLOCKED IN: ";
+    public static final String EventType_1 = "CLOCKED OUT: ";
+    public static final String EventType_2 = "TIMED OUT: ";
     
     //instance fields
     private int id;
@@ -103,6 +103,6 @@ public class Punch {
     }
     
     public String printOriginalTimestamp(){
-        return '#' + badgeid + /* event type NEED HELP + */  originaltimestamp;
+        return '#' + badgeid + getEventType(punchtypeid) +  originaltimestamp;
     }
 }
