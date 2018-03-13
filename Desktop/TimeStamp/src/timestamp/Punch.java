@@ -8,6 +8,11 @@ import java.util.GregorianCalendar;
  */
 public class Punch {
     
+    //important vairables
+    public static final String EventType_0 = "CLOCKED IN";
+    public static final String EventType_1 = "CLOCKED OUT";
+    public static final String EventType_2 = "TIMED OUT";
+    
     //instance fields
     private int id;
     private int terminalid;
@@ -84,9 +89,16 @@ public class Punch {
         this.eventdata = eventdata;
     }
     public String getEventType(int punchtypeid){
-        if(punchtypeid==0){return "CLOCKED IN";}
-        else if(punchtypeid==1){return "CLOCKED OUT";}
-        else if(punchtypeid==2){return "TIMED OUT";}
+        switch (punchtypeid) {
+            case 0:
+                return EventType_0;
+            case 1:
+                return EventType_1;
+            case 2:
+                return EventType_2;
+            default:
+                break;
+        }
         return "null";
     }
     
