@@ -24,7 +24,7 @@ public class Punch {
     
     
     //constructor(s)
-    public Punch(Badge badge, int terminalid, int punchtypeid){
+    public Punch(Badge badge, int terminalid, int punchtypeid, String originaltimestamp){
         this.badgeid = badge.getId();
         this.terminalid = terminalid;
         this.punchtypeid = punchtypeid;
