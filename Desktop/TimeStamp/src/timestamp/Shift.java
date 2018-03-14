@@ -4,9 +4,10 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Shift{
-    private int id, interval, dock, graceperiod, lunchdeduct,lunchdur,shiftdur;
+public class Shift {
+    private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct;
     private String description;
+    private Time start, stop, lunchstart, lunchstop;
     
     
     /* Variables for Tracking Time */
@@ -16,14 +17,18 @@ public class Shift{
     private int lunchStopHour, lunchStopMinute;
     
     /* Constructor */
-    public Shift(){
-        String description = "";
-        int startHour, startMinute = 0;
-        int stopHour, stopMinute = 0;
-        int lunchStartHour, lunchStartMinute = 0;
-        int lunchStopHour, lunchStopMinute = 0;
-        int lunchdur = 0;
-        int shiftdur = 0;
+    public Shift (int id, String description, Time start, Time stop, int interval, int graceperiod, int dock, Time lunchstart, Time lunchstop, int lunchdeduct){
+        this.id = id;
+        this.description = description;
+        this.start = start;
+        this.stop = stop;
+        this.interval = interval;
+        this.graceperiod = graceperiod;
+        this.dock = dock;
+        this.lunchstart = lunchstart;
+        this.lunchstop = lunchstop;
+        this.lunchdeduct = lunchdeduct;
+        
     }
     
     
@@ -152,5 +157,4 @@ public class Shift{
     private Time getLunchStop(){
         return lunchstop;
     }
-    
 }

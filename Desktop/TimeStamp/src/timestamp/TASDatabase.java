@@ -63,14 +63,16 @@ public class TASDatabase {
         
     }
     
-    public Shift getShift(int id) throws SQLException{
-        Shift s = new Shift();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * , HOUR(`start`)AS shiftstarthour, MINUTE(`start`)AS shiftstartminute, HOUR(`lunchstart`)AS lunchstarthour, MINUTE(`lunchstart`)AS lunchstartminute, HOUR(`stop`)AS shiftstophour, MINUTE(`stop`)AS shiftstopminute, HOUR(`lunchstop`)AS lunchstophour, MINUTE(`lunchstop`)AS lunchstopminute, TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur, TIMESTAMPDIFF(MINUTE, `start`, `stop`)AS shiftdur FROM shift WHERE id = ?");
+    public Shift getShiftByID(int id) throws SQLException{
+        Shift s = null;
+        PreparedStatement stmt = conn.prepareStatement("SELECT * , HOUR(`start`)AS shiftstarthour, MINUTE(`start`)AS shiftstartminute, HOUR(`lunchstart`)AS lunchstarthour, MINUTE(`lunchstart`)AS lunchstartminute, HOUR(`stop`)AS shiftstophour, MINUTE(`stop`)AS shiftstopminute, HOUR(`lunchstop`)AS lunchstophour, MINUTE(`lunchstop`)AS lunchstopminute, TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur,TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur FROM shift WHERE id = ?");
         stmt.setInt(1, id);
         ResultSet result = stmt.executeQuery();
         if(result != null){
             result.next();
+/*
             s.setDescription(result.getString("description"));
+
             s.setStartHour(result.getInt("shiftstarthour"));
             s.setStartMinute(result.getInt("shiftstartminute"));
             s.setStopHour(result.getInt("shiftstophour"));
@@ -81,23 +83,34 @@ public class TASDatabase {
             s.setLunchStopMinute(result.getInt("lunchstopminute"));
             s.setLunchdur(result.getInt("lunchdur"));
             s.setShiftdur(result.getInt("shiftdur"));
+ 
+            s.setId(reslut.getInt("id"));
+            s.setInterval(result.getInt("interval"));
+            s.setDock(reslut.getInt("dock"));
+            s.setGracePeriod(result.getInt("graceperiod"));
+            s.setLunchDeduct(result.getInt("lunchdeduct"));
+            s.setStart(result.getInt("shiftstarthour"), result.getInt("shiftstartminute"));
+            s.setStop(result.getInt("shiftstophour"), result.getInt("shiftstopminute"));
+            s.setLunchStart(result.getInt("lunchstarthour"), result.getInt("lunchstartminute"));
+            s.setLunchStop(result.getInt("lunchstophour"), result.getInt("lunchstopminute"));
+*/
         }
-        return s;
         
+        return s;
     }
     
     
-    public Shift getShift(Badge b) throws SQLException{
+    public Shift getShiftByBadge(Badge b) throws SQLException{
         int sID = 0;
         Statement stmt = conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT * FROM employee WHERE badgeid = " + b.getId());
         if(result != null){
             sID = result.getInt("shiftid");
         }
-        Shift ss = getShift(sID);
+        Shift ss = getShiftByID(sID);
+        
         return ss;
+        
     }
-    
-    
     
 }
