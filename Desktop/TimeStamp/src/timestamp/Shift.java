@@ -1,20 +1,9 @@
 package timestamp;
 
-import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 public class Shift {
-    private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct;
+    /* Instance Fields*/
+    private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct, start, stop, lunchstart, lunchstop;
     private String description;
-    private int start, stop, lunchstart, lunchstop;
-    
-    /* Variables for Tracking Time */
-    private int startHour, startMinute;
-    private int stopHour, stopMinute;
-    private int lunchStartHour, lunchStartMinute;
-    private int lunchStopHour, lunchStopMinute;
-    private int totalHours, totalMinutes;
     
     /* variables for toString */
     private String shiftStartTime, shiftStopTime;
