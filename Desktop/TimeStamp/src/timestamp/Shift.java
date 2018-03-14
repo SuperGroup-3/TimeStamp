@@ -27,8 +27,7 @@ public class Shift {
         this.dock = dock;
         this.lunchstart = lunchstart;
         this.lunchstop = lunchstop;
-        this.lunchdeduct = lunchdeduct;
-        
+        this.lunchdeduct = lunchdeduct;       
     }
     
     

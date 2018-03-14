@@ -83,8 +83,7 @@ public class TASDatabase {
             lunchDeduct = result.getInt("lunchdeduct");
         }
         Shift s = null;
-        return s;
-        
+        return s;       
     }
     
     
