@@ -5,9 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Shift {
-    private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct;
+    private int id, interval, dock, graceperiod, lunchdeduct,lunchdur,shiftdur;
     private String description;
-    private Time start, stop, lunchstart, lunchstop;
     
     
     /* Variables for Tracking Time */
@@ -17,8 +16,7 @@ public class Shift {
     private int lunchStopHour, lunchStopMinute;
     
     /* Constructor */
-    public Shift (int id, String description, Time start, Time stop, int interval, int graceperiod, int dock, Time lunchstart, Time lunchstop, int lunchdeduct){
-        this.id = id;
+    public Shift(){
         this.description = description;
         this.start = start;
         this.stop = stop;
