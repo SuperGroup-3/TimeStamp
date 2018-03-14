@@ -12,9 +12,7 @@ public class TimeStamp {
         }
         catch (Exception e) {
             System.err.println(e.toString());
-        }
-
-        
+        }      
     }
     //John Jones, Cody Stancil-Johnson, Tyler Greenwood, Michael Harvey
 }
