@@ -9,12 +9,17 @@ public class Shift {
     private String description;
     private Time start, stop, lunchstart, lunchstop;
     
-    
     /* Variables for Tracking Time */
     private int startHour, startMinute;
     private int stopHour, stopMinute;
     private int lunchStartHour, lunchStartMinute;
     private int lunchStopHour, lunchStopMinute;
+    private int totalHours, totalMinutes;
+    
+    /* variables for toString */
+    private String shiftStartTime, shiftStopTime;
+    private String lunchStartTime, lunchStopTime;
+    private int shiftNum;
     
     /* Constructor */
     public Shift (int id, String description, Time start, Time stop, int interval, int graceperiod, int dock, Time lunchstart, Time lunchstop, int lunchdeduct){
@@ -30,7 +35,12 @@ public class Shift {
         this.lunchdeduct = lunchdeduct;
         
     }
-    
+
+    /* toString*/
+    @Override
+    public String toString(){
+        return "Shift " + shiftNum + ": " + shiftStartTime + " - " + shiftStopTime + "(" + totalMinutes + " minutes);" + "Lunch: " + lunchStartTime + " - " + lunchStopTime + "(" + lunchBreak + " minutes)";
+    }
     
     /* ID */
     private void setId(int id){
