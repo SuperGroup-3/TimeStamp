@@ -131,8 +131,11 @@ public class Shift {
         this.startM = startM;
     }
 
-    private int getStart(){
+    private int getStartH(){
         return startH;
+    }
+    
+    private int getStartM(){
         return startM;
     }
     
@@ -142,8 +145,11 @@ public class Shift {
         this.stopM = stopM;
     }
 
-    private int getStop(){
+    private int getStopH(){
         return stopH;
+    }
+    
+    private int getStopM(){
         return stopM;
     }
     
@@ -153,8 +159,11 @@ public class Shift {
         this.lunchstartM = lunchstartM;
     }
     
-    private int getLunchStart(){
+    private int getLunchStartH(){
         return lunchstartH;
+    }
+    
+    private int getLunchStartM(){
         return lunchstartM;
     }
     
@@ -166,6 +175,12 @@ public class Shift {
     
     private int getLunchStop(){
         return lunchstopH;
+
+
+    }
+
+    private int getLunchstopM() {
         return lunchstopM;
     }
+    
 }
