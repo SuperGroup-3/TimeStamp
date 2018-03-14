@@ -7,17 +7,22 @@ import java.util.Calendar;
 public class Shift {
     private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct;
     private String description;
-    private Time start, stop, lunchstart, lunchstop;
-    
+    private int start, stop, lunchstart, lunchstop;
     
     /* Variables for Tracking Time */
     private int startHour, startMinute;
     private int stopHour, stopMinute;
     private int lunchStartHour, lunchStartMinute;
     private int lunchStopHour, lunchStopMinute;
+    private int totalHours, totalMinutes;
+    
+    /* variables for toString */
+    private String shiftStartTime, shiftStopTime;
+    private String lunchStartTime, lunchStopTime;
+    private int shiftNum;
     
     /* Constructor */
-    public Shift (int id, String description, Time start, Time stop, int interval, int graceperiod, int dock, Time lunchstart, Time lunchstop, int lunchdeduct){
+    public Shift (int id, String description, int start, int stop, int interval, int graceperiod, int dock, int lunchstart, int lunchstop, int lunchdeduct){
         this.id = id;
         this.description = description;
         this.start = start;
@@ -29,7 +34,12 @@ public class Shift {
         this.lunchstop = lunchstop;
         this.lunchdeduct = lunchdeduct;       
     }
-    
+
+    /* toString*/
+    @Override
+    public String toString(){
+        return "Shift " + shiftNum + ": " + shiftStartTime + " - " + shiftStopTime + "(" + totalMinutes + " minutes);" + "Lunch: " + lunchStartTime + " - " + lunchStopTime + "(" + lunchBreak + " minutes)";
+    }
     
     /* ID */
     private void setId(int id){
@@ -122,38 +132,38 @@ public class Shift {
     }
     
     /* start */
-    private void setStart(Time start){
+    private void setStart(int start){
         this.start = start;
     }
 
-    private Time getStart(){
+    private int getStart(){
         return start;
     }
     
     /* stop */
-    private void setStop(Time stop){
+    private void setStop(int stop){
         this.stop = stop;
     }
 
-    private Time getStop(){
+    private int getStop(){
         return stop;
     }
     
     /* lunchstart */
-    private void setLunchStart(Time lunchstart){
+    private void setLunchStart(int lunchstart){
         this.lunchstart = lunchstart;
     }
     
-    private Time getLunchStart(){
+    private int getLunchStart(){
         return lunchstart;
     }
     
     /* lunchstop */
-    private void setLunchstop(Time lunchstop){
+    private void setLunchstop(int lunchstop){
         this.lunchstop = lunchstop;
     }
     
-    private Time getLunchStop(){
+    private int getLunchStop(){
         return lunchstop;
     }
 }
