@@ -106,7 +106,7 @@ public class Punch {
     public String printOriginalTimestamp(){
              
         SimpleDateFormat format = new SimpleDateFormat("E MM/dd/yyyy kk:mm:ss");
-        String ots = format.format(originaltimestamp);
-        return '#' + badgeid + getEventType(punchtypeid) + ots;
+        String ots = format.format(originaltimestamp.getTime()).toUpperCase();
+        return '#' + badgeid + ' ' + getEventType(punchtypeid) + ots;
     }
 }
