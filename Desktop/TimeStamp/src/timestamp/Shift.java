@@ -2,7 +2,7 @@ package timestamp;
 
 public class Shift {
     /* Instance Fields*/
-    private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct, start, stop, lunchstart, lunchstop;
+    private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct, startH, startM, stopH, stopM, lunchstartH, lunchstartM, lunchstopH, lunchstopM;
     private String description;
     
     /* variables for toString */
@@ -11,17 +11,22 @@ public class Shift {
     private int shiftNum;
     
     /* Constructor */
-    public Shift (int id, String description, int start, int stop, int interval, int graceperiod, int dock, int lunchstart, int lunchstop, int lunchdeduct){
+    public Shift (int id, String description, int startH, int startM, int stopH, int stopM, int interval, int graceperiod, int dock, int lunchstartH, int lunchstartM, int lunchstopH, int lunchstopM, int lunchdeduct){
         this.id = id;
         this.description = description;
-        this.start = start;
-        this.stop = stop;
+        this.startH = startH;
+        this.startM = startM;
+        this.stopH = stopH;
+        this.stopM = stopM;
         this.interval = interval;
         this.graceperiod = graceperiod;
         this.dock = dock;
-        this.lunchstart = lunchstart;
-        this.lunchstop = lunchstop;
-        this.lunchdeduct = lunchdeduct;       
+        this.lunchstartH = lunchstartH;
+        this.lunchstartM = lunchstartM;
+        this.lunchstopH = lunchstopH;
+        this.lunchstopM = lunchstopM;
+        this.lunchdeduct = lunchdeduct;
+        
     }
 
     /* toString*/
@@ -121,38 +126,46 @@ public class Shift {
     }
     
     /* start */
-    private void setStart(int start){
-        this.start = start;
+    private void setStart(int startH, int startM){
+        this.startH = startH;
+        this.startM = startM;
     }
 
     private int getStart(){
-        return start;
+        return startH;
+        return startM;
     }
     
     /* stop */
-    private void setStop(int stop){
-        this.stop = stop;
+    private void setStop(int stopH, int stopM){
+        this.stopH = stopH;
+        this.stopM = stopM;
     }
 
     private int getStop(){
-        return stop;
+        return stopH;
+        return stopM;
     }
     
     /* lunchstart */
-    private void setLunchStart(int lunchstart){
-        this.lunchstart = lunchstart;
+    private void setLunchStart(int lunchstartH, int lunchstartM){
+        this.lunchstartH = lunchstartH;
+        this.lunchstartM = lunchstartM;
     }
     
     private int getLunchStart(){
-        return lunchstart;
+        return lunchstartH;
+        return lunchstartM;
     }
     
     /* lunchstop */
-    private void setLunchstop(int lunchstop){
-        this.lunchstop = lunchstop;
+    private void setLunchstop(int lunchstopH, int lunchstopM){
+        this.lunchstopH = lunchstopH;
+        this.lunchstopM = lunchstopM;
     }
     
     private int getLunchStop(){
-        return lunchstop;
+        return lunchstopH;
+        return lunchstopM;
     }
 }
