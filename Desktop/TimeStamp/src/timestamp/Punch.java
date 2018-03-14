@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 /**
  * 
- * @author Michael Harvey
+ * @author Michael Harvey and Cody Stancil-Johnson
  */
 public class Punch {
     
