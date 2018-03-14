@@ -82,7 +82,7 @@ public class TASDatabase {
             dock = result.getInt("dock");
             lunchDeduct = result.getInt("lunchdeduct");
         }
-        Shift s = new Shift();
+        Shift s = null;
         return s;
         
     }

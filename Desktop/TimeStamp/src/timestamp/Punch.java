@@ -103,8 +103,7 @@ public class Punch {
         return "null";
     }
     
-    public String printOriginalTimestamp(){
-             
+    public String printOriginalTimestamp(){        
         SimpleDateFormat format = new SimpleDateFormat("E MM/dd/yyyy kk:mm:ss");
         String ots = format.format(originaltimestamp.getTime()).toUpperCase();
         return '#' + badgeid + ' ' + getEventType(punchtypeid) + ots;
