@@ -64,25 +64,24 @@ public class TASDatabase {
     }
     
     public Shift getShift(int id) throws SQLException{
-        int shiftID = 0;
-        int interval = 0;
-        int dock = 0;
-        int gracePeriod = 0;
-        int lunchDeduct = 0;
-        String description = "";
-        PreparedStatement stmt = conn.prepareStatement("SELECT * , HOUR(`start`)AS shiftstarthour, MINUTE(`start`)AS shiftstartminute, HOUR(`lunchstart`)AS lunchstarthour, MINUTE(`lunchstart`)AS lunchstartminute, HOUR(`stop`)AS shiftstophour, MINUTE(`stop`)AS shiftstopminute, HOUR(`lunchstop`)AS lunchstophour, MINUTE(`lunchstop`)AS lunchstopminute, TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur,TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur FROM shift WHERE id = ?");
+        Shift s = new Shift();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * , HOUR(`start`)AS shiftstarthour, MINUTE(`start`)AS shiftstartminute, HOUR(`lunchstart`)AS lunchstarthour, MINUTE(`lunchstart`)AS lunchstartminute, HOUR(`stop`)AS shiftstophour, MINUTE(`stop`)AS shiftstopminute, HOUR(`lunchstop`)AS lunchstophour, MINUTE(`lunchstop`)AS lunchstopminute, TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur, TIMESTAMPDIFF(MINUTE, `start`, `stop`)AS shiftdur FROM shift WHERE id = ?");
         stmt.setInt(1, id);
         ResultSet result = stmt.executeQuery();
         if(result != null){
             result.next();
-            shiftID = result.getInt("id");
-            description = result.getString("description");
-            interval = result.getInt("interval");
-            gracePeriod = result.getInt("graceperiod");
-            dock = result.getInt("dock");
-            lunchDeduct = result.getInt("lunchdeduct");
+            s.setDescription(result.getString("description"));
+            s.setStartHour(result.getInt("shiftstarthour"));
+            s.setStartMinute(result.getInt("shiftstartminute"));
+            s.setStopHour(result.getInt("shiftstophour"));
+            s.setStopMinute(result.getInt("shiftstopminute"));
+            s.setLunchStartHour(result.getInt("lunchstarthour"));
+            s.setLunchStartMinute(result.getInt("lunchstartminute"));
+            s.setLunchStopHour(result.getInt("lunchstophour"));
+            s.setLunchStopMinute(result.getInt("lunchstopminute"));
+            s.setLunchdur(result.getInt("lunchdur"));
+            s.setShiftdur(result.getInt("shiftdur"));
         }
-        Shift s = new Shift();
         return s;
         
     }

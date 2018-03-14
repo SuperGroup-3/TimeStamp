@@ -4,7 +4,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Shift {
+public class Shift{
     private int id, interval, dock, graceperiod, lunchdeduct,lunchdur,shiftdur;
     private String description;
     
@@ -17,16 +17,13 @@ public class Shift {
     
     /* Constructor */
     public Shift(){
-        this.description = description;
-        this.start = start;
-        this.stop = stop;
-        this.interval = interval;
-        this.graceperiod = graceperiod;
-        this.dock = dock;
-        this.lunchstart = lunchstart;
-        this.lunchstop = lunchstop;
-        this.lunchdeduct = lunchdeduct;
-        
+        String description = "";
+        int startHour, startMinute = 0;
+        int stopHour, stopMinute = 0;
+        int lunchStartHour, lunchStartMinute = 0;
+        int lunchStopHour, lunchStopMinute = 0;
+        int lunchdur = 0;
+        int shiftdur = 0;
     }
     
     
@@ -155,4 +152,5 @@ public class Shift {
     private Time getLunchStop(){
         return lunchstop;
     }
+    
 }
