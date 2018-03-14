@@ -64,25 +64,23 @@ public class TASDatabase {
     }
     
     public Shift getShift(int id) throws SQLException{
-        int shiftID = 0;
-        int interval = 0;
-        int dock = 0;
-        int gracePeriod = 0;
-        int lunchDeduct = 0;
-        String description = "";
+        Shift s = Shift();
         PreparedStatement stmt = conn.prepareStatement("SELECT * , HOUR(`start`)AS shiftstarthour, MINUTE(`start`)AS shiftstartminute, HOUR(`lunchstart`)AS lunchstarthour, MINUTE(`lunchstart`)AS lunchstartminute, HOUR(`stop`)AS shiftstophour, MINUTE(`stop`)AS shiftstopminute, HOUR(`lunchstop`)AS lunchstophour, MINUTE(`lunchstop`)AS lunchstopminute, TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur,TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur FROM shift WHERE id = ?");
         stmt.setInt(1, id);
         ResultSet result = stmt.executeQuery();
         if(result != null){
             result.next();
-            shiftID = result.getInt("id");
-            description = result.getString("description");
-            interval = result.getInt("interval");
-            gracePeriod = result.getInt("graceperiod");
-            dock = result.getInt("dock");
-            lunchDeduct = result.getInt("lunchdeduct");
+            s.setDescription(result.getString("description"));
+            s.setId(reslut.getInt("id"));
+            s.setInterval(result.getInt("interval"));
+            s.setDock(reslut.getInt("dock"));
+            s.setGracePeriod(result.getInt("graceperiod"));
+            s.setLunchDeduct(result.getInt("lunchdeduct"));
+            s.setStart(result.getInt("shiftstarthour"), result.getInt("shiftstartminute"));
+            s.setStop(result.getInt("shiftstophour"), result.getInt("shiftstopminute"));
+            s.setLunchStart(result.getInt("lunchstarthour"), result.getInt("lunchstartminute"));
+            s.setLunchStop(result.getInt("lunchstophour"), result.getInt("lunchstopminute"));
         }
-        Shift s = null;
         return s;       
     }
     
