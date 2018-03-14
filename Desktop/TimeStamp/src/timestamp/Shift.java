@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class Shift {
     private int id, interval, earlyArrival, lateArrival, lunchBreak, overTime, dock, graceperiod, lunchdeduct;
     private String description;
-    private Time start, stop, lunchstart, lunchstop;
+    private int startH, stopH, startM, stopM, lunchstartH, lunchstopH, lunchstartM, lunchstopM;
     
     
     /* Variables for Tracking Time */
@@ -17,144 +17,168 @@ public class Shift {
     private int lunchStopHour, lunchStopMinute;
     
     /* Constructor */
-    public Shift (int id, String description, Time start, Time stop, int interval, int graceperiod, int dock, Time lunchstart, Time lunchstop, int lunchdeduct){
+    public Shift (int id, String description, int startH, int stopH, int startM, int stopM, int interval, int graceperiod, int dock, int lunchstartH, int lunchstopH, int lunchstartM, int lunchstopM, int lunchdeduct){
         this.id = id;
         this.description = description;
-        this.start = start;
-        this.stop = stop;
+        this.startH = startH;
+        this.startM = startM;
+        this.stopH = stopH;
+        this.stopM = stopM;
         this.interval = interval;
         this.graceperiod = graceperiod;
         this.dock = dock;
-        this.lunchstart = lunchstart;
-        this.lunchstop = lunchstop;
+        this.lunchstartH = lunchstartH;
+        this.lunchstartM = lunchstartM;
+        this.lunchstopH = lunchstopH;
+        this.lunchstopM = lunchstopM;
         this.lunchdeduct = lunchdeduct;
         
     }
     
     
     /* ID */
-    private void setId(int id){
+    public void setId(int id){
         this.id = id;
     }
     
-    private int getId(){
+    public int getId(){
         return id;
     }
     
     /* Description */
-    private void setDescription(String description){
+    public void setDescription(String description){
         this.description = description;
     }
 
-    private String getDescription(){
+    public String getDescription(){
         return description;
     }
     
     /* Interval */
-    private void setInterval(int interval){
+    public void setInterval(int interval){
         this.interval = interval;
     }
     
-    private int getInterval(){
+    public int getInterval(){
         return interval;
     }
     
     /* earlyArrival */
-    private void setEarlyArrival(int earlyArrival){
+    public void setEarlyArrival(int earlyArrival){
         this.earlyArrival = earlyArrival;
     }
     
-    private int getearlyArrival(){
+    public int getearlyArrival(){
         return earlyArrival;
     }
     
     /* latArrival */
-    private void setLateArrival(int lateArrival){
+    public void setLateArrival(int lateArrival){
         this.lateArrival = lateArrival;
     }
     
-    private int getLateArrival(){
+    public int getLateArrival(){
         return lateArrival;
     }
     
     /* lunchBreak */
-    private void setLunchBreak(int lunchBreak){
+    public void setLunchBreak(int lunchBreak){
         this.lunchBreak = lunchBreak;
     }
     
-    private int getLunchBreak(){
+    public int getLunchBreak(){
         return lunchBreak;
     }
     
     /* overTime */
-    private void setOverTime(int overTime){
+    public void setOverTime(int overTime){
         this.overTime = overTime;
     }
     
-    private int getOverTime(){
+    public int getOverTime(){
         return overTime;
     }
     
     /* dock */
-    private void setDock(int dock){
+    public void setDock(int dock){
         this.dock = dock;
     }
     
-    private int getDock(){
+    public int getDock(){
         return dock;
     }
     
     /* graceperiod */
-    private void setGracePeriod(int graceperiod){
+    public void setGracePeriod(int graceperiod){
         this.graceperiod = graceperiod;
     }
     
-    private int getGracePeriod(){
+    public int getGracePeriod(){
         return graceperiod;
     }
     
     /* lunchdeduct */
-    private void setLunchDeduct(int lunchdeduct){
+    public void setLunchDeduct(int lunchdeduct){
         this.lunchdeduct = lunchdeduct;
     }
     
-    private int lunchdeduct(){
+    public int lunchdeduct(){
         return lunchdeduct;
     }
     
     /* start */
-    private void setStart(Time start){
-        this.start = start;
+    public void setStart(int startH, int startM){
+        this.startH = startH;
+        this.startM = startM;
     }
 
-    private Time getStart(){
-        return start;
+    public int getStartH(){
+        return startH;
+    }
+   
+    public int getStartM(){
+        return startM;
     }
     
     /* stop */
-    private void setStop(Time stop){
-        this.stop = stop;
+    public void setStop(int stopH, int stopM){
+        this.stopH = stopH;
+        this.stopM = stopM;
     }
 
-    private Time getStop(){
-        return stop;
+    public int getStopH(){
+        return stopH;
+    }
+    
+    public int getStopM(){
+        return stopM;
     }
     
     /* lunchstart */
-    private void setLunchStart(Time lunchstart){
-        this.lunchstart = lunchstart;
+    public void setLunchStart(int lunchstartH, int lunchstartM){
+        this.lunchstartH = lunchstartH;
+        this.lunchstartM = lunchstartM;
     }
     
-    private Time getLunchStart(){
-        return lunchstart;
+    public int getLunchStartH(){
+        return lunchstartH;
+    }
+    
+    public int getLunchStartM(){
+        return lunchstartM;
     }
     
     /* lunchstop */
-    private void setLunchstop(Time lunchstop){
-        this.lunchstop = lunchstop;
+    public void setLunchstop(int lunchstopH, int lunchstopM){
+        this.lunchstopH = lunchstopH;
+        this.lunchstopM = lunchstopM;
     }
     
-    private Time getLunchStop(){
-        return lunchstop;
+    public int getLunchStopH(){
+        return lunchstopH;
+    }
+    
+    public int getLunchStopM(){
+        return lunchstopM;
     }
 }
