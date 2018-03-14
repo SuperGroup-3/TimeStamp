@@ -1,5 +1,6 @@
 package timestamp;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
@@ -102,7 +103,9 @@ public class Punch {
         return "null";
     }
     
-    public String printOriginalTimestamp(){
-        return '#' + badgeid + getEventType(punchtypeid) +  originaltimestamp;
+    public String printOriginalTimestamp(){        
+        SimpleDateFormat format = new SimpleDateFormat("E MM/dd/yyyy kk:mm:ss");
+        String ots = format.format(originaltimestamp.getTime()).toUpperCase();
+        return '#' + badgeid + ' ' + getEventType(punchtypeid) + ots;
     }
 }
