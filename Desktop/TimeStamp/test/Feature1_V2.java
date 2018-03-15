@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import timestamp.Shift;
 import timestamp.TASDatabase;
 import timestamp.Punch;
@@ -11,12 +12,12 @@ public class Feature1_V2 {
     private TASDatabase db;
     
     @Before
-    public void setup() {
+    public void setup() throws ClassNotFoundException, InstantiationException, SQLException, IllegalAccessException {
         db = new TASDatabase();
     }
     
     @Test
-    public void testGetBadges() {
+    public void testGetBadges() throws SQLException {
 		
         /* Retrieve Badges from Database */
 
@@ -33,7 +34,7 @@ public class Feature1_V2 {
     }
     
     @Test
-    public void testGetPunches() {
+    public void testGetPunches() throws SQLException {
 		
         /* Retrieve Punches from Database */
 
@@ -66,13 +67,13 @@ public class Feature1_V2 {
     }
     
     @Test
-    public void testGetShiftByID() {
+    public void testGetShiftByID() throws SQLException {
 		
         /* Retrieve Shift Rulesets from Database */
 
-        Shift s1 = db.getShift(1);
-        Shift s2 = db.getShift(2);
-        Shift s3 = db.getShift(3);
+        Shift s1 = db.getShiftByID(1);
+        Shift s2 = db.getShiftByID(2);
+        Shift s3 = db.getShiftByID(3);
 		
         /* Compare to Expected Values */
 
@@ -83,7 +84,7 @@ public class Feature1_V2 {
     }
     
     @Test
-    public void testGetShiftByBadge() {
+    public void testGetShiftByBadge() throws SQLException {
         
         /* Create Badge Objects */
         
@@ -94,18 +95,16 @@ public class Feature1_V2 {
 		
         /* Retrieve Shift Rulesets from Database */
 
-        Shift s1 = db.getShift(b1);
-        Shift s2 = db.getShift(b2);
-        Shift s3 = db.getShift(b3);
+        Shift s1 = db.getShiftByBadge(b1);
+        Shift s2 = db.getShiftByBadge(b2);
+        Shift s3 = db.getShiftByBadge(b3);
 		
         /* Compare to Expected Values */
 
         assertEquals(s1.toString(), "Shift 1: 07:00 - 15:30 (510 minutes); Lunch: 12:00 - 12:30 (30 minutes)");
         assertEquals(s2.toString(), "Shift 2: 12:00 - 20:30 (510 minutes); Lunch: 16:30 - 17:00 (30 minutes)");
         assertEquals(s3.toString(), "Shift 1 Early Lunch: 07:00 - 15:30 (510 minutes); Lunch: 11:30 - 12:00 (30 minutes)");
-
-    }
-    
+    }   
 }
 
 
