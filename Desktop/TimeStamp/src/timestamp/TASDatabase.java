@@ -86,7 +86,6 @@ public class TASDatabase {
             s.setLunchStopHour(result.getInt("lunchstophour"));
             s.setLunchStopMinute(result.getInt("lunchstopminute"));
         }
-     
         return s;
     }
     
@@ -101,9 +100,12 @@ public class TASDatabase {
             sID = result.getInt("shiftid");
         }
         Shift ss = getShiftByID(sID);
-        
         return ss;
         
+    }
+    
+    public void close() throws SQLException{
+        conn.close();
     }
     
 }
