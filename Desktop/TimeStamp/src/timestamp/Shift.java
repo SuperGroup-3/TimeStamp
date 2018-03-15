@@ -29,6 +29,24 @@ public class Shift {
         int lunchStartHour, lunchStartMinute = 0;
         int lunchStopHour, lunchStopMinute = 0;
     }
+    
+    /* toString */
+    @Override
+    public String toString(){
+        String result = "";
+        String startTime = startHour + ":" + startMinute;
+        String stopTime = stopHour + ":" + stopMinute;
+        String lunchStartTime = lunchStartHour + ":" + lunchStartMinute;
+        String lunchStopTime = lunchStopHour + ":" + lunchStopMinute;
+        
+        result += "Shift " + id + ": ";
+        result += startTime + " - " + stopTime + " ";
+        result += "(" + shiftdur + " minutes); ";
+        result += "Lunch: " + lunchStartTime + " - " + lunchStopTime + " ";
+        result += "(" + lunchdur + " minutes)";
+        
+        return result;
+    }
 
     public int getId() {
         return id;
