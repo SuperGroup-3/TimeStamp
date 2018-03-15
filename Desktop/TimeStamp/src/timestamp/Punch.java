@@ -10,8 +10,8 @@ import java.util.GregorianCalendar;
 public class Punch {
     
     //important vairables
-    public static final String EventType_0 = "CLOCKED IN: ";
-    public static final String EventType_1 = "CLOCKED OUT: ";
+    public static final String EventType_0 = "CLOCKED OUT: ";
+    public static final String EventType_1 = "CLOCKED IN: ";
     public static final String EventType_2 = "TIMED OUT: ";
     
     //instance fields
@@ -104,7 +104,7 @@ public class Punch {
     }
     
     public String printOriginalTimestamp(){        
-        SimpleDateFormat format = new SimpleDateFormat("E MM/dd/yyyy kk:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("E MM/dd/yyyy HH:mm:ss");
         String ots = format.format(originaltimestamp.getTime()).toUpperCase();
         return '#' + badgeid + ' ' + getEventType(punchtypeid) + ots;
     }
