@@ -34,12 +34,12 @@ public class Shift {
     @Override
     public String toString(){
         String result = "";
-        String startTime = startHour + ":" + startMinute;
-        String stopTime = stopHour + ":" + stopMinute;
-        String lunchStartTime = lunchStartHour + ":" + lunchStartMinute;
-        String lunchStopTime = lunchStopHour + ":" + lunchStopMinute;
+        String startTime = String.format("%02d", startHour) + ":" + String.format("%02d", startMinute);
+        String stopTime = String.format("%02d", stopHour) + ":" + String.format("%02d", stopMinute);
+        String lunchStartTime = String.format("%02d", lunchStartHour) + ":" + String.format("%02d", lunchStartMinute);
+        String lunchStopTime = String.format("%02d", lunchStopHour) + ":" + String.format("%02d", lunchStopMinute);
         
-        result += "Shift " + id + ": ";
+        result += description + ": ";
         result += startTime + " - " + stopTime + " ";
         result += "(" + shiftdur + " minutes); ";
         result += "Lunch: " + lunchStartTime + " - " + lunchStopTime + " ";

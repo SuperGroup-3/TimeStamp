@@ -97,6 +97,7 @@ public class TASDatabase {
         stmt.setString(1, badgeID);
         ResultSet result = stmt.executeQuery();
         if(result != null){
+            result.next();
             sID = result.getInt("shiftid");
         }
         Shift ss = getShiftByID(sID);
