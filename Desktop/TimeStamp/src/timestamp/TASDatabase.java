@@ -109,13 +109,12 @@ public class TASDatabase {
     // method(s)
     
     public int insertPunch(Punch p){
-        String query = "INSERT INTO `event` (`id`,`terminalid`,`badgeid`,`originaltimestamp`,`eventtypeid`,`eventdata`,`adjustedtimestamp`) VALUES (";
-        query += Integer.toString(p.getId());
-        query += "," + Integer.toString(p.getTerminalid());
+        String query = "INSERT INTO `event` (`terminalid`,`badgeid`,`originaltimestamp`,`eventtypeid`,`eventdata`) VALUES (";
+        query += Integer.toString(p.getTerminalid());
         query += ",'" + p.getBadgeid() + "',";
-        query += "'" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(p.getOriginaltimestamp()) + "',";
+        query += "'" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(p.getOriginaltimestamp().getTime()) + "',";
         query += Integer.toString(p.getPunchtypeid());
-        query += ",NULL,NULL);";
+        query += ",NULL);";
         
         int newID = -1;
         try{
