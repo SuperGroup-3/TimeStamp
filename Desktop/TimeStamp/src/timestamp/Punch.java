@@ -32,6 +32,14 @@ public class Punch {
         this.originaltimestamp = new GregorianCalendar();
         this.adjustedtimestamp = new GregorianCalendar();
     }
+    
+    public Punch(String badgeId, int terminalid, int punchtypeid){
+        this.badgeid = badgeId;
+        this.terminalid = terminalid;
+        this.punchtypeid = punchtypeid;
+        this.originaltimestamp = new GregorianCalendar();
+        this.adjustedtimestamp = new GregorianCalendar();
+    }
 
     //methods
     public int getId() {
