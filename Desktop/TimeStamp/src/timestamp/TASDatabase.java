@@ -5,6 +5,7 @@
  */
 package timestamp;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
@@ -103,6 +104,35 @@ public class TASDatabase {
         Shift ss = getShiftByID(sID);
         return ss;
         
+    }
+    
+    // method(s)
+    
+    public int insertPunch(Punch p){
+        String query = "INSERT INTO `event` (`id`,`terminalid`,`badgeid`,`originaltimestamp`,`eventtypeid`,`eventdata`,`adjustedtimestamp`) VALUES (";
+        query += Integer.toString(p.getId());
+        query += "," + Integer.toString(p.getTerminalid());
+        query += ",'" + p.getBadgeid() + "',";
+        query += "'" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(p.getOriginaltimestamp()) + "',";
+        query += Integer.toString(p.getPunchtypeid());
+        query += ",NULL,NULL);";
+        
+        int newID = -1;
+        try{
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet result = statement.getGeneratedKeys();
+            if(result != null){
+                result.next();
+                newID = result.getInt(1);
+            }
+            result.close();
+            statement.close();
+        }
+        catch(SQLException se){
+            se.printStackTrace();
+        }
+        return newID;
     }
     
     public void close() throws SQLException{
