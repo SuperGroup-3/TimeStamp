@@ -7,6 +7,7 @@ package timestamp;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.ArrayList;
 
 /**
  *
@@ -132,6 +133,19 @@ public class TASDatabase {
             se.printStackTrace();
         }
         return newID;
+    }
+    
+    public ArrayList getDailyPunchList(Badge b, GregorianCalendar ts) throws SQLException{
+        ArrayList punchList = new ArrayList();
+        String id = b.getId();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM event WHERE badgeid = ? AND originaltimestamp = ?");
+        
+        ResultSet result = stmt.executeQuery();
+        if(result != null){
+            result.next();
+            
+        }
+        return punchList;
     }
     
     public void close() throws SQLException{
