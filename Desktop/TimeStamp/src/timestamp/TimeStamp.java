@@ -1,14 +1,17 @@
 package timestamp;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 public class TimeStamp {
 
     public static void main(String[] args) {
         try {
             TASDatabase db= new TASDatabase();
-            Badge b2 = db.getBadge("08D01475");
-            Punch p = new Punch(b2, 1, 1);
-            System.out.println(p.printOriginalTimestamp());
-            
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTimeInMillis(1501670964000L);
+            ArrayList<Punch> punchList = db.getDailyPunchList(new Badge("4E6E296E", ""), c);
+            System.out.println(punchList.size());
         }
         catch (Exception e) {
             System.err.println(e.toString());
