@@ -141,7 +141,6 @@ public class TASDatabase {
         int day = ts.get(Calendar.DAY_OF_MONTH);
         int month = ts.get(Calendar.MONTH)+1;
         int year = ts.get(Calendar.YEAR);
-        GregorianCalendar c = new GregorianCalendar();
 
         PreparedStatement stmt = conn.prepareStatement("SELECT *, "
                 + "UNIX_TIMESTAMP(originaltimestamp)*1000 AS ts FROM event WHERE "
@@ -156,10 +155,11 @@ public class TASDatabase {
         ResultSet result = stmt.executeQuery();
         if(result != null){
             while(result.next()){
-                result.next();
+                GregorianCalendar c = new GregorianCalendar();
                 Punch p = new Punch(result.getString("badgeid"),result.getInt("terminalid"),result.getInt("eventtypeid"));
                 p.setId(result.getInt("id"));
                 c.setTimeInMillis(result.getLong("ts"));
+                p.setOriginaltimestamp(c);
                 punchList.add(p);
             }
         }
