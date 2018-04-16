@@ -12,6 +12,9 @@ public class TimeStamp {
             c.setTimeInMillis(1501670964000L);
             ArrayList<Punch> punchList = db.getDailyPunchList(new Badge("4E6E296E", ""), c);
             System.out.println(punchList.size());
+            for (Punch p : punchList) {
+                System.out.println(p.printOriginalTimestamp());
+            }
         }
         catch (Exception e) {
             System.err.println(e.toString());
