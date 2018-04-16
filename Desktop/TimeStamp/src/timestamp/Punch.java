@@ -2,6 +2,8 @@ package timestamp;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.Date;
+import java.util.Calendar;
 
 /**
  * 
@@ -109,6 +111,83 @@ public class Punch {
                 break;
         }
         return "null";
+    }
+    
+    public void adjust(Shift s){
+        GregorianCalendar ots = originaltimestamp;
+        long otsMillis = ots.getTimeInMillis();
+        
+        GregorianCalendar shiftStart = new GregorianCalendar();
+        shiftStart.setTimeInMillis(otsMillis);
+        shiftStart.set(Calendar.HOUR, s.getStartHour());
+        shiftStart.set(Calendar.MINUTE, s.getStartMinute());
+        shiftStart.set(Calendar.SECOND, 0);
+        
+        GregorianCalendar shiftStop = new GregorianCalendar();
+        shiftStop.setTimeInMillis(otsMillis);
+        shiftStop.set(Calendar.HOUR, s.getStopHour());
+        shiftStop.set(Calendar.MINUTE, s.getStopMinute());
+        shiftStop.set(Calendar.SECOND, 0);
+        
+        long shiftStartMillis = shiftStart.getTimeInMillis();
+        
+        GregorianCalendar shiftStartInterval = new GregorianCalendar();
+        shiftStartInterval.setTimeInMillis(shiftStartMillis);
+        shiftStartInterval.add(Calendar.MINUTE, -s.getInterval());
+        
+        GregorianCalendar shiftStartDock = new GregorianCalendar();
+        shiftStartDock.setTimeInMillis(shiftStartMillis);
+        shiftStartDock.add(Calendar.MINUTE, s.getDock());
+        
+        GregorianCalendar shiftStartGrace = new GregorianCalendar();
+        shiftStartGrace.setTimeInMillis(shiftStartMillis);
+        shiftStartGrace.add(Calendar.MINUTE, s.getGraceperiod());
+        
+        GregorianCalendar lunchStart = new GregorianCalendar();
+        lunchStart.setTimeInMillis(otsMillis);
+        lunchStart.set(Calendar.HOUR, s.getLunchStartHour());
+        lunchStart.set(Calendar.MINUTE, s.getLunchStartMinute());
+        lunchStart.set(Calendar.SECOND, 0);
+        
+        GregorianCalendar lunchStop = new GregorianCalendar();
+        lunchStop.setTimeInMillis(otsMillis);
+        lunchStop.set(Calendar.HOUR, s.getLunchStopHour());
+        lunchStop.set(Calendar.MINUTE, s.getLunchStopMinute());
+        lunchStop.set(Calendar.SECOND, 0);
+        
+        long shiftStopMillis = shiftStop.getTimeInMillis();
+        
+        GregorianCalendar shiftStopInterval = new GregorianCalendar();
+        shiftStopInterval.setTimeInMillis(shiftStopMillis);
+        shiftStopInterval.add(Calendar.MINUTE, s.getInterval());
+        
+        GregorianCalendar shiftStopDock = new GregorianCalendar();
+        shiftStopDock.setTimeInMillis(shiftStopMillis);
+        shiftStopDock.add(Calendar.MINUTE, -s.getDock());
+        
+        GregorianCalendar shiftStopGrace = new GregorianCalendar();
+        shiftStopGrace.setTimeInMillis(shiftStopMillis);
+        shiftStopGrace.add(Calendar.MINUTE, -s.getGraceperiod());
+        
+        if(otsMillis < shiftStart.getTimeInMillis() && otsMillis > shiftStartInterval.getTimeInMillis())
+        {
+            
+        }
+        
+        else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartDock.getTimeInMillis())
+        {
+            
+        }
+        
+        else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
+        {
+            
+        }
+        
+        else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopDock.getTimeInMillis())
+        {
+            
+        }
     }
     
     public String printOriginalTimestamp(){        
