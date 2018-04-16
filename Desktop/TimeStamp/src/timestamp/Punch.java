@@ -117,18 +117,21 @@ public class Punch {
         GregorianCalendar ots = originaltimestamp;
         long otsMillis = ots.getTimeInMillis();
         
+        //Shift Start
         GregorianCalendar shiftStart = new GregorianCalendar();
         shiftStart.setTimeInMillis(otsMillis);
         shiftStart.set(Calendar.HOUR, s.getStartHour());
         shiftStart.set(Calendar.MINUTE, s.getStartMinute());
         shiftStart.set(Calendar.SECOND, 0);
         
+        //Shift Stop
         GregorianCalendar shiftStop = new GregorianCalendar();
         shiftStop.setTimeInMillis(otsMillis);
         shiftStop.set(Calendar.HOUR, s.getStopHour());
         shiftStop.set(Calendar.MINUTE, s.getStopMinute());
         shiftStop.set(Calendar.SECOND, 0);
         
+        // Shift Start Interval, Dock, & Grace Period
         long shiftStartMillis = shiftStart.getTimeInMillis();
         
         GregorianCalendar shiftStartInterval = new GregorianCalendar();
@@ -143,6 +146,7 @@ public class Punch {
         shiftStartGrace.setTimeInMillis(shiftStartMillis);
         shiftStartGrace.add(Calendar.MINUTE, s.getGraceperiod());
         
+        //Lunch Start & Stop
         GregorianCalendar lunchStart = new GregorianCalendar();
         lunchStart.setTimeInMillis(otsMillis);
         lunchStart.set(Calendar.HOUR, s.getLunchStartHour());
@@ -155,6 +159,7 @@ public class Punch {
         lunchStop.set(Calendar.MINUTE, s.getLunchStopMinute());
         lunchStop.set(Calendar.SECOND, 0);
         
+        //Shift Stop Interval, Dock, and Grace Period
         long shiftStopMillis = shiftStop.getTimeInMillis();
         
         GregorianCalendar shiftStopInterval = new GregorianCalendar();
@@ -176,7 +181,10 @@ public class Punch {
         
         else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartDock.getTimeInMillis())
         {
-            
+            if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartGrace.getTimeInMillis())
+            {
+                
+            }
         }
         
         else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
@@ -185,6 +193,14 @@ public class Punch {
         }
         
         else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopDock.getTimeInMillis())
+        {
+            if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
+            {
+                
+            }
+        }
+        
+        else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis < shiftStopInterval.getTimeInMillis())
         {
             
         }
