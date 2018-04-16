@@ -174,11 +174,13 @@ public class Punch {
         shiftStopGrace.setTimeInMillis(shiftStopMillis);
         shiftStopGrace.add(Calendar.MINUTE, -s.getGraceperiod());
         
+        //Before Start of Shift
         if(otsMillis < shiftStart.getTimeInMillis() && otsMillis > shiftStartInterval.getTimeInMillis())
         {
             
         }
         
+        //After Start of Shift
         else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartDock.getTimeInMillis())
         {
             if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartGrace.getTimeInMillis())
@@ -187,11 +189,13 @@ public class Punch {
             }
         }
         
+        //Lunch Break
         else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
         {
             
         }
         
+        //Before End of Shift
         else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopDock.getTimeInMillis())
         {
             if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
@@ -200,6 +204,7 @@ public class Punch {
             }
         }
         
+        //After End of Shift
         else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis < shiftStopInterval.getTimeInMillis())
         {
             
