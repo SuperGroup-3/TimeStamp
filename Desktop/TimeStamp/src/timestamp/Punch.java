@@ -2,6 +2,8 @@ package timestamp;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.Date;
+import java.util.Calendar;
 
 /**
  * 
@@ -109,6 +111,88 @@ public class Punch {
                 break;
         }
         return "null";
+    }
+    
+    public void adjust(Shift s){
+        Date time = originaltimestamp.getTime();
+        Calendar ots = GregorianCalendar.getInstance();
+        ots.setTime(time);
+        
+        int otsHours = ots.get(Calendar.HOUR_OF_DAY);
+        int otsMinutes = ots.get(Calendar.MINUTE);
+        
+        /* Before the start of shift */
+        if(otsHours <= s.getStartHour() && otsMinutes < s.getStartMinute())
+        {
+            /* Outside of Interval */
+            if(otsMinutes < (s.getStartMinute() - s.getInterval()))
+            {
+                
+            }
+            /* Inside of Interval */
+            else if(otsMinutes < s.getStartMinute() && otsMinutes > (s.getStartMinute() - s.getInterval()))
+            {
+                /* Grace Period */
+                if(otsMinutes < s.getStartMinute() && otsMinutes >= (s.getStartMinute() - s.getGraceperiod()))
+                {
+                    
+                }
+            }
+        }
+        
+        /* After the start of shift */
+        else if(otsHours >= s.getStartHour() && otsHours <= s.getLunchStartHour() && otsMinutes > s.getStartMinute() && otsMinutes < s.getLunchStartMinute())
+        {
+            if(otsMinutes > (s.getStartMinute() + s.getInterval()))
+            {
+                
+            }
+            else if(otsMinutes > s.getStartMinute() && otsMinutes < (s.getStartMinute() + s.getInterval()))
+            {
+                if(otsMinutes > s.getStartMinute() && otsMinutes <= (s.getStartMinute() + s.getGraceperiod()))
+                {
+                    
+                }
+            }
+        }
+        
+        /* Lunch Break */
+        else if(otsHours >= s.getLunchStartHour() && otsMinutes >= s.getLunchStartMinute() && otsHours <= s.getLunchStopHour() && otsMinutes <= s.getLunchStopMinute())
+        {
+            
+        }
+        
+        /* Before the end of shift */
+        else if(otsHours <= s.getStopHour() && otsMinutes < s.getStopMinute() && otsHours >= s.getLunchStopHour())
+        {
+            if(otsMinutes < (s.getStopMinute() - s.getInterval()))
+            {
+                
+            }
+            else if(otsMinutes < s.getStopMinute() && otsMinutes > (s.getStopMinute() - s.getInterval()))
+            {
+                if(otsMinutes < s.getStopMinute() && otsMinutes > (s.getStopMinute() - s.getGraceperiod()))
+                {
+                    
+                }
+            }
+        }
+        
+        /* After the end of Shift */
+        else if(otsHours >= s.getStopHour() && otsMinutes > s.getStopMinute())
+        {
+            if(otsMinutes > (s.getStopMinute() + s.getInterval()))
+            {
+            
+            }
+            else if(otsMinutes > s.getStopMinute() && otsMinutes < s.getStopMinute() + s.getInterval())
+            {
+                if(otsMinutes > s.getStopMinute() && otsMinutes < (s.getStopMinute() + s.getGraceperiod()))
+                {
+                    
+                }
+            }
+        }
     }
     
     public String printOriginalTimestamp(){        
