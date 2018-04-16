@@ -66,7 +66,7 @@ public class TASDatabase {
         
     }
     
-    public Shift getShiftByID(int id) throws SQLException{
+    public Shift getShift(int id) throws SQLException{  //Gets shift by ID
         Shift s = new Shift();
         PreparedStatement stmt = conn.prepareStatement("SELECT * , HOUR(`start`)AS shiftstarthour, MINUTE(`start`)AS shiftstartminute, HOUR(`lunchstart`)AS lunchstarthour, MINUTE(`lunchstart`)AS lunchstartminute, HOUR(`stop`)AS shiftstophour, MINUTE(`stop`)AS shiftstopminute, HOUR(`lunchstop`)AS lunchstophour, MINUTE(`lunchstop`)AS lunchstopminute, TIMESTAMPDIFF(MINUTE, `lunchstart`, `lunchstop`)AS lunchdur,TIMESTAMPDIFF(MINUTE, `start`, `stop`)AS shiftdur FROM shift WHERE id = ?");
         stmt.setInt(1, id);
@@ -93,7 +93,7 @@ public class TASDatabase {
     }
     
     
-    public Shift getShiftByBadge(Badge b) throws SQLException{
+    public Shift getShift(Badge b) throws SQLException{ //Gets shift by Badge
         int sID = 0;
         String badgeID = b.getId();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM employee WHERE badgeid = ?");
@@ -103,7 +103,7 @@ public class TASDatabase {
             result.next();
             sID = result.getInt("shiftid");
         }
-        Shift ss = getShiftByID(sID);
+        Shift ss = getShift(sID);
         return ss;
         
     }
