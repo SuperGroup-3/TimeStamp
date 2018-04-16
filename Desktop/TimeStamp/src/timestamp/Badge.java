@@ -2,7 +2,7 @@ package timestamp;
 
 /**
  * 
- * @author Cody Stancil-Johnson
+ * @author Cody Stancil-Johnson and Michael Harvey
  */
 public class Badge {
     // instance fields
