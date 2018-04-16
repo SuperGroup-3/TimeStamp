@@ -151,7 +151,6 @@ public class TASDatabase {
         stmt.setInt(2, month);
         stmt.setInt(3, day);
         stmt.setInt(4, year);
-        System.out.println(stmt);
         ResultSet result = stmt.executeQuery();
         if(result != null){
             while(result.next()){
