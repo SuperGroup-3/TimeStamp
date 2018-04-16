@@ -139,18 +139,23 @@ public class TASDatabase {
     public ArrayList getDailyPunchList(Badge b, GregorianCalendar ts) throws SQLException{
         ArrayList<Punch> punchList = new ArrayList<>();
         int day = ts.get(Calendar.DAY_OF_MONTH);
-        int month = ts.get(Calendar.MONTH+1);
+        int month = ts.get(Calendar.MONTH)+1;
         int year = ts.get(Calendar.YEAR);
         GregorianCalendar c = new GregorianCalendar();
 
-        PreparedStatement stmt = conn.prepareStatement("SELECT *, UNIX_TIMESTAMP(originaltimestampfrom)*1000 AS ts event WHERE badgeid = ? AND month(originaltimestamp) = ? AND day(originaltimestamp) = ? AND year(originaltimestamp) = ? ORDER BY originaltimestamp");
+        PreparedStatement stmt = conn.prepareStatement("SELECT *, "
+                + "UNIX_TIMESTAMP(originaltimestamp)*1000 AS ts FROM event WHERE "
+                + "badgeid = ? AND month(originaltimestamp) = ? AND "
+                + "day(originaltimestamp) = ? AND year(originaltimestamp) = ? "
+                + "ORDER BY originaltimestamp");
         stmt.setString(1,b.getId());
         stmt.setInt(2, month);
         stmt.setInt(3, day);
         stmt.setInt(4, year);
+        System.out.println(stmt);
         ResultSet result = stmt.executeQuery();
-        while(result.next()){
-            if(result != null){
+        if(result != null){
+            while(result.next()){
                 result.next();
                 Punch p = new Punch(result.getString("badgeid"),result.getInt("terminalid"),result.getInt("eventtypeid"));
                 p.setId(result.getInt("id"));
