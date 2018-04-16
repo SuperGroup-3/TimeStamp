@@ -114,84 +114,79 @@ public class Punch {
     }
     
     public void adjust(Shift s){
-        Date time = originaltimestamp.getTime();
-        Calendar ots = GregorianCalendar.getInstance();
-        ots.setTime(time);
+        GregorianCalendar ots = originaltimestamp;
+        long otsMillis = ots.getTimeInMillis();
         
-        int otsHours = ots.get(Calendar.HOUR_OF_DAY);
-        int otsMinutes = ots.get(Calendar.MINUTE);
+        GregorianCalendar shiftStart = new GregorianCalendar();
+        shiftStart.setTimeInMillis(otsMillis);
+        shiftStart.set(Calendar.HOUR, s.getStartHour());
+        shiftStart.set(Calendar.MINUTE, s.getStartMinute());
+        shiftStart.set(Calendar.SECOND, 0);
         
-        /* Before the start of shift */
-        if(otsHours <= s.getStartHour() && otsMinutes < s.getStartMinute())
-        {
-            /* Outside of Interval */
-            if(otsMinutes < (s.getStartMinute() - s.getInterval()))
-            {
-                
-            }
-            /* Inside of Interval */
-            else if(otsMinutes < s.getStartMinute() && otsMinutes > (s.getStartMinute() - s.getInterval()))
-            {
-                /* Grace Period */
-                if(otsMinutes < s.getStartMinute() && otsMinutes >= (s.getStartMinute() - s.getGraceperiod()))
-                {
-                    
-                }
-            }
-        }
+        GregorianCalendar shiftStop = new GregorianCalendar();
+        shiftStop.setTimeInMillis(otsMillis);
+        shiftStop.set(Calendar.HOUR, s.getStopHour());
+        shiftStop.set(Calendar.MINUTE, s.getStopMinute());
+        shiftStop.set(Calendar.SECOND, 0);
         
-        /* After the start of shift */
-        else if(otsHours >= s.getStartHour() && otsHours <= s.getLunchStartHour() && otsMinutes > s.getStartMinute() && otsMinutes < s.getLunchStartMinute())
-        {
-            if(otsMinutes > (s.getStartMinute() + s.getInterval()))
-            {
-                
-            }
-            else if(otsMinutes > s.getStartMinute() && otsMinutes < (s.getStartMinute() + s.getInterval()))
-            {
-                if(otsMinutes > s.getStartMinute() && otsMinutes <= (s.getStartMinute() + s.getGraceperiod()))
-                {
-                    
-                }
-            }
-        }
+        long shiftStartMillis = shiftStart.getTimeInMillis();
         
-        /* Lunch Break */
-        else if(otsHours >= s.getLunchStartHour() && otsMinutes >= s.getLunchStartMinute() && otsHours <= s.getLunchStopHour() && otsMinutes <= s.getLunchStopMinute())
+        GregorianCalendar shiftStartInterval = new GregorianCalendar();
+        shiftStartInterval.setTimeInMillis(shiftStartMillis);
+        shiftStartInterval.add(Calendar.MINUTE, -s.getInterval());
+        
+        GregorianCalendar shiftStartDock = new GregorianCalendar();
+        shiftStartDock.setTimeInMillis(shiftStartMillis);
+        shiftStartDock.add(Calendar.MINUTE, s.getDock());
+        
+        GregorianCalendar shiftStartGrace = new GregorianCalendar();
+        shiftStartGrace.setTimeInMillis(shiftStartMillis);
+        shiftStartGrace.add(Calendar.MINUTE, s.getGraceperiod());
+        
+        GregorianCalendar lunchStart = new GregorianCalendar();
+        lunchStart.setTimeInMillis(otsMillis);
+        lunchStart.set(Calendar.HOUR, s.getLunchStartHour());
+        lunchStart.set(Calendar.MINUTE, s.getLunchStartMinute());
+        lunchStart.set(Calendar.SECOND, 0);
+        
+        GregorianCalendar lunchStop = new GregorianCalendar();
+        lunchStop.setTimeInMillis(otsMillis);
+        lunchStop.set(Calendar.HOUR, s.getLunchStopHour());
+        lunchStop.set(Calendar.MINUTE, s.getLunchStopMinute());
+        lunchStop.set(Calendar.SECOND, 0);
+        
+        long shiftStopMillis = shiftStop.getTimeInMillis();
+        
+        GregorianCalendar shiftStopInterval = new GregorianCalendar();
+        shiftStopInterval.setTimeInMillis(shiftStopMillis);
+        shiftStopInterval.add(Calendar.MINUTE, s.getInterval());
+        
+        GregorianCalendar shiftStopDock = new GregorianCalendar();
+        shiftStopDock.setTimeInMillis(shiftStopMillis);
+        shiftStopDock.add(Calendar.MINUTE, -s.getDock());
+        
+        GregorianCalendar shiftStopGrace = new GregorianCalendar();
+        shiftStopGrace.setTimeInMillis(shiftStopMillis);
+        shiftStopGrace.add(Calendar.MINUTE, -s.getGraceperiod());
+        
+        if(otsMillis < shiftStart.getTimeInMillis() && otsMillis > shiftStartInterval.getTimeInMillis())
         {
             
         }
         
-        /* Before the end of shift */
-        else if(otsHours <= s.getStopHour() && otsMinutes < s.getStopMinute() && otsHours >= s.getLunchStopHour())
+        else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartDock.getTimeInMillis())
         {
-            if(otsMinutes < (s.getStopMinute() - s.getInterval()))
-            {
-                
-            }
-            else if(otsMinutes < s.getStopMinute() && otsMinutes > (s.getStopMinute() - s.getInterval()))
-            {
-                if(otsMinutes < s.getStopMinute() && otsMinutes > (s.getStopMinute() - s.getGraceperiod()))
-                {
-                    
-                }
-            }
+            
         }
         
-        /* After the end of Shift */
-        else if(otsHours >= s.getStopHour() && otsMinutes > s.getStopMinute())
+        else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
         {
-            if(otsMinutes > (s.getStopMinute() + s.getInterval()))
-            {
             
-            }
-            else if(otsMinutes > s.getStopMinute() && otsMinutes < s.getStopMinute() + s.getInterval())
-            {
-                if(otsMinutes > s.getStopMinute() && otsMinutes < (s.getStopMinute() + s.getGraceperiod()))
-                {
-                    
-                }
-            }
+        }
+        
+        else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopDock.getTimeInMillis())
+        {
+            
         }
     }
     
