@@ -136,7 +136,7 @@ public class Punch {
         
         GregorianCalendar shiftStartInterval = new GregorianCalendar();
         shiftStartInterval.setTimeInMillis(shiftStartMillis);
-        shiftStartInterval.add(Calendar.MINUTE, -s.getInterval());
+        shiftStartInterval.add(Calendar.MINUTE, -(s.getInterval()));
         
         GregorianCalendar shiftStartDock = new GregorianCalendar();
         shiftStartDock.setTimeInMillis(shiftStartMillis);
@@ -168,16 +168,21 @@ public class Punch {
         
         GregorianCalendar shiftStopDock = new GregorianCalendar();
         shiftStopDock.setTimeInMillis(shiftStopMillis);
-        shiftStopDock.add(Calendar.MINUTE, -s.getDock());
+        shiftStopDock.add(Calendar.MINUTE, -(s.getDock()));
         
         GregorianCalendar shiftStopGrace = new GregorianCalendar();
         shiftStopGrace.setTimeInMillis(shiftStopMillis);
-        shiftStopGrace.add(Calendar.MINUTE, -s.getGraceperiod());
+        shiftStopGrace.add(Calendar.MINUTE, -(s.getGraceperiod()));
         
         //Before Start of Shift
         if(otsMillis < shiftStart.getTimeInMillis() && otsMillis > shiftStartInterval.getTimeInMillis())
         {
-            
+            adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+            adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+            adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
+            adjustedtimestamp.set(Calendar.SECOND, 0);
+
+            eventdata = "Shift Start";
         }
         
         //After Start of Shift
@@ -185,8 +190,18 @@ public class Punch {
         {
             if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartGrace.getTimeInMillis())
             {
-                
+                adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+                adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+                adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
+                adjustedtimestamp.set(Calendar.SECOND, 0);
+
+                eventdata = "Shift Start";
             }
+            
+            adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+            adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
+            
+            eventdata = "Shift Start";
         }
         
         //Lunch Break
