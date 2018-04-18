@@ -186,9 +186,16 @@ public class Punch {
         }
         
         //After Start of Shift
-        else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartDock.getTimeInMillis())
-        {
-            if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartGrace.getTimeInMillis())
+        else if(otsMillis > shiftStartGrace.getTimeInMillis() && otsMillis < shiftStartDock.getTimeInMillis())
+        {   
+            adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+            adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
+            
+            eventdata = "Shift Start";
+        }
+        
+        //Within Grace Period
+        else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartGrace.getTimeInMillis())
             {
                 adjustedtimestamp.setTimeInMillis(shiftStartMillis);
                 adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
@@ -197,12 +204,6 @@ public class Punch {
 
                 eventdata = "Shift Start";
             }
-            
-            adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-            adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
-            
-            eventdata = "Shift Start";
-        }
         
         //Lunch Break
         else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
@@ -211,13 +212,16 @@ public class Punch {
         }
         
         //Before End of Shift
-        else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopDock.getTimeInMillis())
+        else if(otsMillis < shiftStopGrace.getTimeInMillis() && otsMillis > shiftStopDock.getTimeInMillis())
         {
-            if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
+          
+        }
+        
+        //Within Grace Period
+        else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
             {
                 
             }
-        }
         
         //After End of Shift
         else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis < shiftStopInterval.getTimeInMillis())
