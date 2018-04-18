@@ -14,12 +14,23 @@ public class TASLogic {
         for (int i=0;i<dailypunchlist.size();++i){
             //check for clock in punch
             if (dailypunchlist.get(i).getPunchtypeid()==1){
-                long in = dailypunchlist.get(i).getOriginaltimestamp().getTimeInMillis();
-                
+                //change timestamp to millis
+                long in = dailypunchlist.get(i).getOriginaltimestamp().getTimeInMillis(); //Change original to adjusted later
+                insidePair = true;
+                i++;
+                //find matching clock out punch
+                while (insidePair){
+                    if (dailypunchlist.get(i).getPunchtypeid()==0){ //ignore unmatched pairs
+                        //change timestamp to millis
+                        long out = dailypunchlist.get(i).getOriginaltimestamp().getTimeInMillis(); //Change original to adjusted later
+                        insidePair = false;
+                    }
+                    else{
+                        i++;
+                    }
+                }
             }
-            //find matching clock out punch
-            //change timestamps to millis
-            //subtract clock out milli from clock in milli
+            //subtract clock in milli from clock out milli
             //divide ^ by 1000 to convert to seconds
             //divide ^ by 60 to get minutes
         }
