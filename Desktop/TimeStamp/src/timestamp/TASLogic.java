@@ -1,10 +1,14 @@
 package timestamp;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Michael Harvey
  */
 public class TASLogic {
-    //Created as a blank class for the sake of feature one
-    // TODO Later
+
+    public static int calculateTotalMinutes(ArrayList<Punch> dailypunchlist, Shift shift){
+        //Stuff go here
+    }
 }
