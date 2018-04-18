@@ -216,4 +216,8 @@ public class Punch {
         String ots = format.format(originaltimestamp.getTime()).toUpperCase();
         return '#' + badgeid + ' ' + getEventType(punchtypeid) + ots;
     }
+    
+    public String printAdjustedTimestamp(){        
+        return null;
+    }
 }
