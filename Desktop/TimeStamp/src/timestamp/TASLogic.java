@@ -10,6 +10,7 @@ public class TASLogic {
 
     public static int calculateTotalMinutes(ArrayList<Punch> dailypunchlist, Shift shift){
         int totalMinutes = 0;
+        long totalMillis = 0;
         boolean insidePair = false; 
         for (int i=0;i<dailypunchlist.size();++i){
             //check for clock in punch
@@ -24,15 +25,15 @@ public class TASLogic {
                         //change timestamp to millis
                         long out = dailypunchlist.get(i).getOriginaltimestamp().getTimeInMillis(); //Change original to adjusted later
                         insidePair = false;
+                        totalMillis = out - in;
+                        totalMinutes = (int) (totalMillis / 1000); //millis to seconds
+                        totalMinutes = totalMinutes / 60; //seconds to minutes
                     }
                     else{
                         i++;
                     }
                 }
             }
-            //subtract clock in milli from clock out milli
-            //divide ^ by 1000 to convert to seconds
-            //divide ^ by 60 to get minutes
         }
         return totalMinutes;
     }
