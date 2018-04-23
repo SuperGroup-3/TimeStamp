@@ -169,20 +169,6 @@ public class Shift {
         this.lunchStopMinute = lunchStopMinute;
     }
     
-    
-    private int getLunchStart(){
-        return lunchstart;
-    }
-    
-    /* lunchstop */
-    private void setLunchstop(int lunchstop){
-        this.lunchstop = lunchstop;
-    }
-    
-    private int getLunchStop(){
-        return lunchstop;
-    }
-    
     /* java util Calendar*/
     private long getElapsedTime(Timestamp s, Timestamp e){
         Calendar startCal = GregorianCalendar.getInstance();
