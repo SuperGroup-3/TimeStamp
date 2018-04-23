@@ -167,33 +167,5 @@ public class Shift {
 
     public void setLunchStopMinute(int lunchStopMinute) {
         this.lunchStopMinute = lunchStopMinute;
-    }
-    
-    
-    private int getLunchStart(){
-        return lunchstart;
-    }
-    
-    /* lunchstop */
-    private void setLunchstop(int lunchstop){
-        this.lunchstop = lunchstop;
-    }
-    
-    private int getLunchStop(){
-        return lunchstop;
-    }
-    
-    /* java util Calendar*/
-    private long getElapsedTime(Timestamp s, Timestamp e){
-        Calendar startCal = GregorianCalendar.getInstance();
-        Calendar endCal = GregorianCalendar.getInstance();
-        
-        startCal.setTimeInMillis(s.getTime());
-        endCal.setTimeInMillis(e.getTime());
-        
-        long initial, ending;
-        initial = startCal.getTimeInMillis();
-        ending = endCal.getTimeInMillis();
-        return (ending-initial)/60000;
-    }
+    }         
 }
