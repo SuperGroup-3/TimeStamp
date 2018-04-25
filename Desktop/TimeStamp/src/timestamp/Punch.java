@@ -194,16 +194,16 @@ public class Punch {
             eventdata = "Shift Start";
         }
         
-        //Within Grace Period
+        //Within First Grace Period
         else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartGrace.getTimeInMillis())
-            {
-                adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-                adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
-                adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
-                adjustedtimestamp.set(Calendar.SECOND, 0);
+        {
+            adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+            adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+            adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
+            adjustedtimestamp.set(Calendar.SECOND, 0);
 
-                eventdata = "Shift Start";
-            }
+            eventdata = "Shift Start";
+        }
         
         //Lunch Break
         else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
@@ -222,9 +222,15 @@ public class Punch {
             eventdata = "Shift Stop";
         }
         
-        //Within Grace Period
+        //Within Last Grace Period
         else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
             {
+            adjustedtimestamp.setTimeInMillis(shiftStopMillis);
+            adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
+            adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
+            adjustedtimestamp.set(Calendar.SECOND, 0);
+
+            eventdata = "Shift Stop";
                 
             }
         
