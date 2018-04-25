@@ -212,9 +212,14 @@ public class Punch {
         }
         
         //Before End of Shift
-        else if(otsMillis < shiftStopGrace.getTimeInMillis() && otsMillis > shiftStopDock.getTimeInMillis())
+        else if(otsMillis < shiftStopGrace.getTimeInMillis() && otsMillis >= shiftStopDock.getTimeInMillis())
         {
-          
+            adjustedtimestamp.setTimeInMillis(shiftStopMillis);
+            adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
+            adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
+            adjustedtimestamp.set(Calendar.SECOND, 0);
+
+            eventdata = "Shift Stop";
         }
         
         //Within Grace Period
@@ -226,7 +231,12 @@ public class Punch {
         //After End of Shift
         else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis < shiftStopInterval.getTimeInMillis())
         {
-            
+            adjustedtimestamp.setTimeInMillis(shiftStopMillis);
+            adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
+            adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
+            adjustedtimestamp.set(Calendar.SECOND, 0);
+
+            eventdata = "Shift Stop";
         }
     }
     
