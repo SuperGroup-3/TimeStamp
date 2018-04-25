@@ -116,6 +116,8 @@ public class Punch {
     public void adjust(Shift s){
         GregorianCalendar ots = originaltimestamp;
         long otsMillis = ots.getTimeInMillis();
+        boolean adjusted = false;
+        adjustedtimestamp.setTimeInMillis(otsMillis);
         
         //Shift Start
         GregorianCalendar shiftStart = new GregorianCalendar();
@@ -187,6 +189,7 @@ public class Punch {
                     adjustedtimestamp.set(Calendar.SECOND, 0);
 
                     eventdata = "Shift Start";
+                    adjusted = true;
                 }
 
                 //After Start of Shift
@@ -196,52 +199,93 @@ public class Punch {
                     adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
 
                     eventdata = "Shift Start";
+                    adjusted = true;
                 }
 
                 //Within Grace Period
                 else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis <= shiftStartGrace.getTimeInMillis())
-                    {
-                        adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-                        adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
-                        adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
-                        adjustedtimestamp.set(Calendar.SECOND, 0);
-
-                        eventdata = "Shift Start";
-                    }
-
-                //Lunch Break
-                else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
                 {
+                    adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+                    adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+                    adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
+                    adjustedtimestamp.set(Calendar.SECOND, 0);
 
+                    eventdata = "Shift Start";
+                    adjusted = true;
                 }
 
+                //Lunch Break
+                else if(otsMillis >= lunchStart.getTimeInMillis() && otsMillis <= lunchStop.getTimeInMillis())
+                {
+                    adjustedtimestamp.setTimeInMillis(lunchStop.getTimeInMillis());
+               
+                    eventdata = "Lunch Stop";
+                    adjusted = true;
+                }
+            }
+            
+            if(punchtypeid == 0)
+            {
+                //Lunch Break
+                if(otsMillis >= lunchStart.getTimeInMillis() && otsMillis <= lunchStop.getTimeInMillis())
+                {
+                    adjustedtimestamp.setTimeInMillis(lunchStart.getTimeInMillis());
+               
+                    eventdata = "Lunch Start";
+                    adjusted = true;
+                }
+                
                 //Before End of Shift
                 else if(otsMillis < shiftStopGrace.getTimeInMillis() && otsMillis >= shiftStopDock.getTimeInMillis())
                 {
-                    adjustedtimestamp.setTimeInMillis(shiftStopMillis);
-                    adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
-                    adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
-                    adjustedtimestamp.set(Calendar.SECOND, 0);
+                    adjustedtimestamp.setTimeInMillis(shiftStopDock.getTimeInMillis());                   
 
                     eventdata = "Shift Stop";
+                    adjusted = true;
                 }
 
                 //Within Grace Period
-                else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
-                    {
-
-                    }
-
-                //After End of Shift
-                else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis < shiftStopInterval.getTimeInMillis())
+                else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis >= shiftStopGrace.getTimeInMillis())
                 {
-                    adjustedtimestamp.setTimeInMillis(shiftStopMillis);
-                    adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
-                    adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
-                    adjustedtimestamp.set(Calendar.SECOND, 0);
+                    adjustedtimestamp.setTimeInMillis(shiftStop.getTimeInMillis());                   
 
                     eventdata = "Shift Stop";
+                    adjusted = true;
                 }
+
+                //After End of Shift
+                else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis <= shiftStopInterval.getTimeInMillis())
+                {
+                    adjustedtimestamp.setTimeInMillis(shiftStopMillis);                  
+
+                    eventdata = "Shift Stop";
+                    adjusted = true;
+                }
+            }
+        }
+        if(!adjusted)
+        {
+            int originalMinute = ots.get(Calendar.MINUTE);
+            int shiftInterval = s.getInterval();
+            int adjustedMinute = originalMinute;
+            
+            if(originalMinute % shiftInterval != 0)
+            {
+                if((originalMinute % shiftInterval) < (shiftInterval / 2))
+                {
+                    adjustedMinute = (Math.round(originalMinute / shiftInterval) * shiftInterval);
+                }
+                else
+                {
+                    adjustedMinute = (Math.round(originalMinute / shiftInterval) * shiftInterval) + shiftInterval; 
+                }
+                adjustedtimestamp.add(Calendar.MINUTE, adjustedMinute - originalMinute);
+                adjustedtimestamp.set(Calendar.SECOND, 0);
+                eventdata = "Interval Round";
+            }
+            else
+            {
+                eventdata = "None";
             }
         }
     }
@@ -253,7 +297,9 @@ public class Punch {
     }
     
     public String printAdjustedTimestamp(){        
-        return null;
+        SimpleDateFormat format = new SimpleDateFormat("E MM/dd/yyyy HH:mm:ss");
+        String ats = format.format(adjustedtimestamp.getTime()).toUpperCase();
+        return '#' + badgeid + ' ' + getEventType(punchtypeid) + ats + " (" + eventdata + ")";        
     }
     
 }
