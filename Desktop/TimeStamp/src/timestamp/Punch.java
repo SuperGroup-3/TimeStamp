@@ -174,69 +174,75 @@ public class Punch {
         shiftStopGrace.setTimeInMillis(shiftStopMillis);
         shiftStopGrace.add(Calendar.MINUTE, -(s.getGraceperiod()));
         
-        //Before Start of Shift
-        if(otsMillis < shiftStart.getTimeInMillis() && otsMillis > shiftStartInterval.getTimeInMillis())
-        {
-            adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-            adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
-            adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
-            adjustedtimestamp.set(Calendar.SECOND, 0);
+        if((ots.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) && (ots.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY))
+        {    
+            if(punchtypeid == 1)           
+            {    
+                //Before Start of Shift
+                if(otsMillis < shiftStart.getTimeInMillis() && otsMillis > shiftStartInterval.getTimeInMillis())
+                {
+                    adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+                    adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+                    adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
+                    adjustedtimestamp.set(Calendar.SECOND, 0);
 
-            eventdata = "Shift Start";
-        }
-        
-        //After Start of Shift
-        else if(otsMillis > shiftStartGrace.getTimeInMillis() && otsMillis < shiftStartDock.getTimeInMillis())
-        {   
-            adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-            adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
-            
-            eventdata = "Shift Start";
-        }
-        
-        //Within Grace Period
-        else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis < shiftStartGrace.getTimeInMillis())
-            {
-                adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-                adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
-                adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
-                adjustedtimestamp.set(Calendar.SECOND, 0);
+                    eventdata = "Shift Start";
+                }
 
-                eventdata = "Shift Start";
+                //After Start of Shift
+                else if(otsMillis > shiftStartGrace.getTimeInMillis() && otsMillis <= shiftStartDock.getTimeInMillis())
+                {   
+                    adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+                    adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
+
+                    eventdata = "Shift Start";
+                }
+
+                //Within Grace Period
+                else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis <= shiftStartGrace.getTimeInMillis())
+                    {
+                        adjustedtimestamp.setTimeInMillis(shiftStartMillis);
+                        adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+                        adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
+                        adjustedtimestamp.set(Calendar.SECOND, 0);
+
+                        eventdata = "Shift Start";
+                    }
+
+                //Lunch Break
+                else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
+                {
+
+                }
+
+                //Before End of Shift
+                else if(otsMillis < shiftStopGrace.getTimeInMillis() && otsMillis >= shiftStopDock.getTimeInMillis())
+                {
+                    adjustedtimestamp.setTimeInMillis(shiftStopMillis);
+                    adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
+                    adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
+                    adjustedtimestamp.set(Calendar.SECOND, 0);
+
+                    eventdata = "Shift Stop";
+                }
+
+                //Within Grace Period
+                else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
+                    {
+
+                    }
+
+                //After End of Shift
+                else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis < shiftStopInterval.getTimeInMillis())
+                {
+                    adjustedtimestamp.setTimeInMillis(shiftStopMillis);
+                    adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
+                    adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
+                    adjustedtimestamp.set(Calendar.SECOND, 0);
+
+                    eventdata = "Shift Stop";
+                }
             }
-        
-        //Lunch Break
-        else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
-        {
-            
-        }
-        
-        //Before End of Shift
-        else if(otsMillis < shiftStopGrace.getTimeInMillis() && otsMillis >= shiftStopDock.getTimeInMillis())
-        {
-            adjustedtimestamp.setTimeInMillis(shiftStopMillis);
-            adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
-            adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
-            adjustedtimestamp.set(Calendar.SECOND, 0);
-
-            eventdata = "Shift Stop";
-        }
-        
-        //Within Grace Period
-        else if(otsMillis < shiftStop.getTimeInMillis() && otsMillis > shiftStopGrace.getTimeInMillis())
-            {
-                
-            }
-        
-        //After End of Shift
-        else if(otsMillis > shiftStop.getTimeInMillis() && otsMillis < shiftStopInterval.getTimeInMillis())
-        {
-            adjustedtimestamp.setTimeInMillis(shiftStopMillis);
-            adjustedtimestamp.set(Calendar.HOUR, s.getStopHour());
-            adjustedtimestamp.set(Calendar.MINUTE, s.getStopMinute());
-            adjustedtimestamp.set(Calendar.SECOND, 0);
-
-            eventdata = "Shift Stop";
         }
     }
     
