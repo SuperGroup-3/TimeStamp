@@ -12,9 +12,9 @@ import java.util.Calendar;
 public class Punch {
     
     //important vairables
-    public static final String EventType_0 = "CLOCKED OUT: ";
-    public static final String EventType_1 = "CLOCKED IN: ";
-    public static final String EventType_2 = "TIMED OUT: ";
+    public static final String EventType0 = "CLOCKED OUT: ";
+    public static final String EventType1 = "CLOCKED IN: ";
+    public static final String EventType2 = "TIMED OUT: ";
     
     //instance fields
     private int id;
@@ -102,11 +102,11 @@ public class Punch {
     public String getEventType(int punchtypeid){
         switch (punchtypeid) {
             case 0:
-                return EventType_0;
+                return EventType0;
             case 1:
-                return EventType_1;
+                return EventType1;
             case 2:
-                return EventType_2;
+                return EventType2;
             default:
                 break;
         }
@@ -152,12 +152,14 @@ public class Punch {
         lunchStart.set(Calendar.HOUR, s.getLunchStartHour());
         lunchStart.set(Calendar.MINUTE, s.getLunchStartMinute());
         lunchStart.set(Calendar.SECOND, 0);
+        long lunchStartMillis = lunchStart.getTimeInMillis();
         
         GregorianCalendar lunchStop = new GregorianCalendar();
         lunchStop.setTimeInMillis(otsMillis);
         lunchStop.set(Calendar.HOUR, s.getLunchStopHour());
         lunchStop.set(Calendar.MINUTE, s.getLunchStopMinute());
         lunchStop.set(Calendar.SECOND, 0);
+        long lunchStopMillis = lunchStop.getTimeInMillis();
         
         //Shift Stop Interval, Dock, and Grace Period
         long shiftStopMillis = shiftStop.getTimeInMillis();
@@ -206,9 +208,25 @@ public class Punch {
             }
         
         //Lunch Break
-        else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis())
-        {
-            
+        else if(otsMillis > lunchStart.getTimeInMillis() && otsMillis < lunchStop.getTimeInMillis()){
+            if (getPunchtypeid() == 0){
+                //clock out at beginning of lunch break
+                adjustedtimestamp.setTimeInMillis(lunchStartMillis);
+                adjustedtimestamp.set(Calendar.HOUR, s.getLunchStartHour());
+                adjustedtimestamp.set(Calendar.MINUTE, s.getLunchStartMinute());
+                adjustedtimestamp.set(Calendar.SECOND, 0);
+                
+                eventdata = "Lunch Start";
+            }
+            else if (getPunchtypeid() == 1){
+                //clock in at end of lunch break
+                adjustedtimestamp.setTimeInMillis(lunchStopMillis);
+                adjustedtimestamp.set(Calendar.HOUR, s.getLunchStopHour());
+                adjustedtimestamp.set(Calendar.MINUTE, s.getLunchStopMinute());
+                adjustedtimestamp.set(Calendar.SECOND, 0);
+                
+                eventdata = "Lunch Stop";
+            }
         }
         
         //Before End of Shift
