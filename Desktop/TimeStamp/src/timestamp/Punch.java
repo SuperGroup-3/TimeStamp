@@ -154,12 +154,14 @@ public class Punch {
         lunchStart.set(Calendar.HOUR, s.getLunchStartHour());
         lunchStart.set(Calendar.MINUTE, s.getLunchStartMinute());
         lunchStart.set(Calendar.SECOND, 0);
+        long lunchStartMillis = lunchStart.getTimeInMillis();
         
         GregorianCalendar lunchStop = new GregorianCalendar();
         lunchStop.setTimeInMillis(otsMillis);
         lunchStop.set(Calendar.HOUR, s.getLunchStopHour());
         lunchStop.set(Calendar.MINUTE, s.getLunchStopMinute());
         lunchStop.set(Calendar.SECOND, 0);
+        long lunchStopMillis = lunchStop.getTimeInMillis();
         
         //Shift Stop Interval, Dock, and Grace Period
         long shiftStopMillis = shiftStop.getTimeInMillis();
