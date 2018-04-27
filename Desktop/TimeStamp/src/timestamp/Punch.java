@@ -132,6 +132,8 @@ public class Punch {
         shiftStop.set(Calendar.HOUR, s.getStopHour());
         shiftStop.set(Calendar.MINUTE, s.getStopMinute());
         shiftStop.set(Calendar.SECOND, 0);
+        System.out.println(s.getStopHour());
+        System.out.println(s.getStopMinute());
         
         // Shift Start Interval, Dock, & Grace Period
         long shiftStartMillis = shiftStart.getTimeInMillis();
@@ -186,9 +188,9 @@ public class Punch {
                 if(otsMillis < shiftStart.getTimeInMillis() && otsMillis > shiftStartInterval.getTimeInMillis())
                 {
                     adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-                    adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+                 /* adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
                     adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
-                    adjustedtimestamp.set(Calendar.SECOND, 0);
+                    adjustedtimestamp.set(Calendar.SECOND, 0); */
 
                     eventdata = "Shift Start";
                     adjusted = true;
@@ -197,20 +199,20 @@ public class Punch {
                 //After Start of Shift
                 else if(otsMillis > shiftStartGrace.getTimeInMillis() && otsMillis <= shiftStartDock.getTimeInMillis())
                 {   
-                    adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-                    adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
+                    adjustedtimestamp.setTimeInMillis(shiftStartDock.getTimeInMillis());
+                    // adjustedtimestamp.add(Calendar.MINUTE, s.getDock());
 
-                    eventdata = "Shift Start";
+                    eventdata = "Shift Dock";
                     adjusted = true;
                 }
 
                 //Within Grace Period
                 else if(otsMillis > shiftStart.getTimeInMillis() && otsMillis <= shiftStartGrace.getTimeInMillis())
                 {
-                    adjustedtimestamp.setTimeInMillis(shiftStartMillis);
-                    adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
+                    adjustedtimestamp.setTimeInMillis(shiftStart.getTimeInMillis());
+                /*  adjustedtimestamp.set(Calendar.HOUR, s.getStartHour());
                     adjustedtimestamp.set(Calendar.MINUTE, s.getStartMinute());
-                    adjustedtimestamp.set(Calendar.SECOND, 0);
+                    adjustedtimestamp.set(Calendar.SECOND, 0); */
 
                     eventdata = "Shift Start";
                     adjusted = true;
@@ -226,7 +228,7 @@ public class Punch {
                 }
             }
             
-            if(punchtypeid == 0)
+            else if(punchtypeid == 0)
             {
                 //Lunch Break
                 if(otsMillis >= lunchStart.getTimeInMillis() && otsMillis <= lunchStop.getTimeInMillis())
